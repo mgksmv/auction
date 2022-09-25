@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    --primary-color: #1C3879;
+    --secondary-color: #607EAA;
+    --background-color: #EEEEEE;
+}
+
+body {
+    background: var(--background-color);
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+
+h2 {
+    font-weight: bold;
+}
+
+.navbar {
+    background: #FFF;
+}
+
+.navbar a {
+    color: #000;
+    padding: .5em;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    color: var(--primary-color);
+}
+
+.navbar-logo {
+    color: #000;
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+.navbar-logo span {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+#clockdiv {
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    font-size: 30px;
+}
+
+#clockdiv > div {
+    padding: 5px;
+    border-radius: 3px;
+    background: var(--secondary-color);
+    display: inline-block;
+}
+
+#clockdiv div > span {
+    padding: 15px;
+    border-radius: 3px;
+    background: var(--primary-color);
+    display: inline-block;
+}
