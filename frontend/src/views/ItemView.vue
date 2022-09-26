@@ -126,6 +126,8 @@ export default {
         this.biddingSocket.send(JSON.stringify({command: 'get_bids'}))
         this.biddingSocket.onmessage = ({data}) => {
           const parsedData = JSON.parse(data)
+          console.log(data)
+          console.log(parsedData)
           if (parsedData.command === 'get_bids') {
             this.auction.price = parsedData.bid.price
             this.bidsHistory.push(parsedData.bid)
@@ -169,15 +171,15 @@ export default {
 
         if (this.auction.price >= this.auction.winning_price) {
           this.resetCountdown(timer)
-          this.winner = this.auction.winner
           this.finishAuction()
+          this.winner = this.auction.winner
         }
 
         if (difference < 0) {
           this.resetCountdown()
           if (this.auction.winner) {
-            this.winner = this.auction.winner
             this.finishAuction()
+            this.winner = this.auction.winner
           }
         }
       })
