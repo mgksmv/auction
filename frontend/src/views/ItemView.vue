@@ -176,9 +176,9 @@ export default {
         }
 
         if (difference < 0) {
-          this.resetCountdown()
+          this.resetCountdown(timer)
+          this.finishAuction()
           if (this.auction.winner) {
-            this.finishAuction()
             this.winner = this.auction.winner
           }
         }
@@ -199,6 +199,7 @@ export default {
       axios.put(`/bidding/auctions/${this.$route.params.id}/`, {
         'is_finished': true,
       }).then(response => {
+        console.log(response.data)
         this.auction = response.data
       })
     },
