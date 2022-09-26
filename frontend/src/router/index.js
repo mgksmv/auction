@@ -4,6 +4,7 @@ import ItemView from '../views/ItemView.vue'
 import LoginView from '../views/LoginView.vue'
 import SignUpView from '../views/SignUpView.vue'
 import LogoutView from '../views/LogoutView.vue';
+import ProfileView from '../views/ProfileView.vue';
 
 
 const router = createRouter({
@@ -35,6 +36,11 @@ const router = createRouter({
       name: 'logout',
       component: LogoutView,
     },
+    {
+      path: '/profile/',
+      name: 'profile',
+      component: ProfileView,
+    }
   ]
 })
 

@@ -148,9 +148,9 @@ export default {
             this.errors = errors.response.data
           })
     },
-    uploadPhoto(event) {
-      console.log(event.target.files)
-    }
+    // uploadPhoto(event) {
+    //   console.log(event.target.files)
+    // }
   }
 }
 </script>

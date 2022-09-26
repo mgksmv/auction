@@ -64,23 +64,8 @@ export default {
           .post('/api-token-auth/', {'username': this.email, 'password': this.password})
           .then(response => {
             const data = response.data
-            const token = data.token
-            const meta = {
-              email: data.email,
-              first_name: data.first_name,
-              last_name: data.last_name,
-            }
-
-            this.$store.commit('setToken', token)
-            this.$store.commit('setMeta', meta)
-
-            axios.defaults.headers.common['Authorization'] = `Token ${token}`
-
-            localStorage.setItem('token', token)
-            localStorage.setItem('email', meta.email)
-            localStorage.setItem('first_name', meta.first_name)
-            localStorage.setItem('last_name', meta.last_name)
-
+            axios.defaults.headers.common['Authorization'] = `Token ${data.token}`
+            this.$store.commit('setUserData', data)
             this.$router.push({name: 'index'})
           })
           .catch(error => {

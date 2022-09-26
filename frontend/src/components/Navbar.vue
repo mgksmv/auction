@@ -9,6 +9,10 @@
         <b-collapse id="nav-collapse" is-nav>
           <div v-if="isLoggedIn">
             <a>{{ user.meta.email }}</a>
+            <router-link :to="{'name': 'profile'}">
+              <font-awesome-icon icon="fa-solid fa-user" />
+              Профиль
+            </router-link>
             <router-link :to="{'name': 'logout'}">
               <font-awesome-icon icon="fa-solid fa-right-from-bracket"/>
               Выйти
