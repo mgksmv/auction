@@ -29,7 +29,7 @@ class Item(ResizeImageMixin, models.Model):
     )
     name = models.CharField('Название предмета', max_length=150)
     image = models.ImageField('Картинка', upload_to='item_images', default='item_images/default.png')
-    description = models.TextField('Описание', null=True, blank=True)
+    description = models.TextField('Описание', max_length=300,null=True, blank=True)
     owner = models.ForeignKey(
         to=User,
         verbose_name='Владелец',
@@ -42,7 +42,6 @@ class Item(ResizeImageMixin, models.Model):
         to=User,
         verbose_name='Бывшие владельцы',
         related_name='previous_owners',
-        null=True,
         blank=True,
     )
     created_at = models.DateTimeField('Дата создания', auto_now_add=True)
@@ -98,6 +97,7 @@ class Auction(models.Model):
         blank=True,
         null=True
     )
+    is_finished = models.BooleanField('Завершён?', default=False)
 
     class Meta:
         verbose_name = 'аукцион'

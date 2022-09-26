@@ -11,7 +11,7 @@ export default {
   name: 'LogoutView',
   methods: {
     logout() {
-      this.$store.commit('removeToken')
+      this.$store.commit('removeUserData')
       this.$router.push({name: 'index'})
     }
   },

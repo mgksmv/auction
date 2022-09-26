@@ -8,6 +8,7 @@
 <script>
 import Navbar from './components/Navbar.vue';
 import axios from 'axios';
+import {mapGetters} from 'vuex';
 
 export default {
   components: {

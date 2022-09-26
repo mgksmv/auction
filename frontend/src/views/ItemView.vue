@@ -2,7 +2,7 @@
   <b-button @click="disconnect()" variant="danger" pill>Выйти</b-button>
 
   <div class="row">
-    <div v-if="isOver">
+    <div v-if="auction.is_finished">
       <h2 v-if="winner" class="text-success text-center mb-3">
         <font-awesome-icon icon="fa-solid fa-gavel" />
         Победитель - {{ winner.get_full_name }}! Поздравляем!
@@ -32,7 +32,7 @@
         <h5>Цена - {{ auction.price }} ₽</h5>
 
         <div v-if="isLoggedIn">
-          <div v-if="!isOver">
+          <div v-if="!auction.is_finished">
             <input v-model="userBid" type="text" class="form-control" :class="incorrectUserBid">
             <div v-if="incorrectUserBid" id="validationServer03Feedback" class="invalid-feedback">
               Ставка не может быть меньше текущей цены!
@@ -87,7 +87,7 @@
 
 <script>
 import axios from 'axios';
-import {mapGetters} from "vuex";
+import {mapGetters} from 'vuex';
 
 export default {
   name: 'ItemView',
@@ -100,7 +100,6 @@ export default {
       bidsHistory: [],
       userBid: '',
       incorrectUserBid: '',
-      isOver: false,
       winner: false,
       timer: {
         days: 0,
@@ -170,17 +169,15 @@ export default {
 
         if (this.auction.price >= this.auction.winning_price) {
           this.resetCountdown(timer)
-          this.isOver = true
           this.winner = this.auction.winner
+          this.finishAuction()
         }
 
         if (difference < 0) {
           this.resetCountdown()
           if (this.auction.winner) {
-            this.isOver = true
             this.winner = this.auction.winner
-          } else {
-            this.isOver = true
+            this.finishAuction()
           }
         }
       })
@@ -195,6 +192,13 @@ export default {
     showNewBidMessage() {
       this.newBidMessage = true
       setTimeout(() => this.newBidMessage = false, 3000)
+    },
+    finishAuction() {
+      axios.put(`/bidding/auctions/${this.$route.params.id}/`, {
+        'is_finished': true,
+      }).then(response => {
+        this.auction = response.data
+      })
     },
   },
   watch: {
