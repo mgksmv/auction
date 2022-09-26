@@ -55,7 +55,7 @@ class Item(ResizeImageMixin, models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        if not self.image:
+        if not self.pk:
             self.resize(self.image, (500, 500))
         super().save(*args, **kwargs)
 

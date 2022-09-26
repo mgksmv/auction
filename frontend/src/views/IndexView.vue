@@ -17,9 +17,12 @@
         <h2>{{ auction.price }} ₽</h2>
 
         <div v-if="auction.is_finished">
-          <h5 v-if="auction.winner" class="text-success">
-            <font-awesome-icon icon="fa-solid fa-gavel" /> Победитель - {{ auction.winner.get_full_name }}
-          </h5>
+          <div v-if="auction.winner">
+            <h5 class="text-success">
+              <font-awesome-icon icon="fa-solid fa-gavel" /> Победитель:
+            </h5>
+            <h4 class="text-success winner">{{ auction.winner.get_full_name }}</h4>
+          </div>
           <h5 v-else>
             <font-awesome-icon icon="fa-solid fa-gavel" /> Победитель не объявлен
           </h5>
