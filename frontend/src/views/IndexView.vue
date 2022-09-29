@@ -1,7 +1,7 @@
 <template>
   <h1 class="text-center mb-4">Главная</h1>
 
-  <div class="row">
+  <div v-if="auctions.length > 0" class="row">
     <b-card-group deck>
       <b-card
         v-for="auction in auctions" key="item.id"
@@ -46,6 +46,9 @@
         </template>
       </b-card>
     </b-card-group>
+  </div>
+  <div v-else>
+    <h4 class="text-center text-danger">Активных аукционов нет</h4>
   </div>
 
 </template>

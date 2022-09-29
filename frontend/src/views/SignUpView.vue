@@ -73,7 +73,7 @@
           </div>
         </b-form-group>
 
-        <input type="file" @change="uploadPhoto" class="py-3">
+        <input @change="getPhoto" type="file" class="py-3">
 
         <b-form-group
             id="input-group-5"
@@ -121,25 +121,22 @@ export default {
         password: '',
         first_name: '',
         last_name: '',
-        birthday: null,
-        photo: null,
+        birthday: '',
         phone: '',
       },
+      selectedPhoto: null,
       errors: '',
     }
   },
   methods: {
     submitForm() {
+      const formData = new FormData()
+      for (let [key, val] of Object.entries(this.form)) {
+        formData.append(key, val)
+      }
+      formData.append('photo', this.selectedPhoto, this.selectedPhoto.name)
       axios
-          .post('/accounts/users/', {
-            email: this.form.email,
-            password: this.form.password,
-            first_name: this.form.first_name,
-            last_name: this.form.last_name,
-            birthday: this.form.birthday,
-            photo: this.form.photo,
-            phone: this.form.phone,
-          })
+          .post('/accounts/users/', formData)
           .then(() => {
             const successMessage = true
             this.$router.push({name: 'login', query: { successMessage }})
@@ -148,9 +145,9 @@ export default {
             this.errors = errors.response.data
           })
     },
-    // uploadPhoto(event) {
-    //   console.log(event.target.files)
-    // }
+    getPhoto(event) {
+      this.selectedPhoto = event.target.files[0]
+    }
   }
 }
 </script>
