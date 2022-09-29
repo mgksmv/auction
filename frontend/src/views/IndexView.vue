@@ -41,7 +41,7 @@
             Последняя ставка - {{ auction.bids[auction.bids.length - 1].bid_placed_at }}
           </small>
           <small v-else class="text-muted">
-            Ни одной ставки... Будьте первыми!
+            <span class="text-success">Ни одной ставки... Будьте первыми!</span>
           </small>
         </template>
       </b-card>
@@ -73,7 +73,7 @@ export default {
     getBiddingItems() {
       axios.get('/bidding/auctions/').then(response => {
         this.auctions = response.data
-      }).catch(error => {
+      }).catch(() => {
         this.$store.commit('removeUserData')
       })
     },

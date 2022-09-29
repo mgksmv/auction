@@ -33,7 +33,7 @@
 
         <div v-if="isLoggedIn">
           <div v-if="!auction.is_finished">
-            <input v-model="userBid" type="text" class="form-control" :class="incorrectUserBid">
+            <input v-model="userBid" type="text" class="form-control" :class="incorrectUserBid" @keyup.enter="placeBid()">
             <div v-if="incorrectUserBid" id="validationServer03Feedback" class="invalid-feedback">
               Ставка не может быть меньше текущей цены!
             </div>
@@ -113,9 +113,6 @@ export default {
     ...mapGetters({
       isLoggedIn: 'isLoggedIn',
     }),
-    bidsHistory() {
-      return this.bidsHistory.slice(Math.max(this.bidsHistory.length - 5, 0))
-    },
   },
   methods: {
     connect() {
@@ -193,17 +190,20 @@ export default {
       axios.put(`/bidding/auctions/${this.$route.params.id}/`, {
         'is_finished': true,
       }).then(response => {
+        this.bidsHistory = []
         this.auction = response.data
         if (response.data.winner) {
           this.winner = response.data.winner
-          console.log(this.winner)
+          axios.patch(`/bidding/items/${this.auction.item.id}/`, {
+            'owner': this.winner.id,
+          })
         }
       })
     },
   },
   watch: {
     bidsHistory: {
-      handler(new_value) {
+      handler() {
         this.showNewBidMessage()
       },
       deep: true

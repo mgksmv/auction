@@ -13,6 +13,7 @@ export default createStore({
             if (localStorage.getItem('token') || state.user === undefined) {
                 state.user.token = localStorage.getItem('token')
                 state.user.meta = {
+                    id: localStorage.getItem('id'),
                     email: localStorage.getItem('email'),
                     first_name: localStorage.getItem('first_name'),
                     last_name: localStorage.getItem('last_name'),
@@ -31,6 +32,7 @@ export default createStore({
             state.isAuthenticated = true
             state.user.token = data.token
             state.user.meta = {
+                id: data.user_id,
                 email: data.email,
                 first_name: data.first_name,
                 last_name: data.last_name,
@@ -39,6 +41,7 @@ export default createStore({
                 birthday: data.birthday,
             }
             localStorage.setItem('token', data.token)
+            localStorage.setItem('id', data.user_id)
             localStorage.setItem('email', data.email)
             localStorage.setItem('first_name', data.first_name)
             localStorage.setItem('last_name', data.last_name)
