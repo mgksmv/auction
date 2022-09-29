@@ -171,7 +171,9 @@ export default {
 
         if (difference < 0) {
           this.resetCountdown(timer)
-          this.finishAuction()
+          if (!this.auction.is_finished) {
+            this.finishAuction()
+          }
         }
       })
     },
@@ -183,8 +185,10 @@ export default {
       this.timer.seconds = 0
     },
     showNewBidMessage() {
-      this.newBidMessage = true
-      setTimeout(() => this.newBidMessage = false, 3000)
+      if (this.bidsHistory.length > 0) {
+        this.newBidMessage = true
+        setTimeout(() => this.newBidMessage = false, 3000)
+      }
     },
     finishAuction() {
       axios.put(`/bidding/auctions/${this.$route.params.id}/`, {
@@ -203,7 +207,7 @@ export default {
   },
   watch: {
     bidsHistory: {
-      handler() {
+      handler(new_value) {
         this.showNewBidMessage()
       },
       deep: true
