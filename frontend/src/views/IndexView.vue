@@ -14,7 +14,11 @@
         class="m-2"
       >
 
-        <h2>{{ auction.price }} ₽</h2>
+        <div v-if="!auction.is_finished">
+          <b-badge pill variant="warning">• Live!</b-badge>
+        </div>
+
+        <h2 class="py-2">{{ auction.price }} ₽</h2>
 
         <div v-if="auction.is_finished">
           <div v-if="auction.winner">

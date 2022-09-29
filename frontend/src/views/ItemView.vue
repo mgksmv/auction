@@ -13,7 +13,7 @@
       </h2>
     </div>
 
-    <h1 class="text-center mt-2">{{ auction.price }} ₽</h1>
+    <h1 class="text-center mt-2"><font-awesome-icon icon="fa-solid fa-coins" /> {{ auction.price }} ₽</h1>
     <h4 class="text-center mb-5">Выигрышная цена: {{ auction.winning_price }}</h4>
 
     <div class="col-6">
